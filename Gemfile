@@ -39,7 +39,7 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
-gem "turbo-rails"
+gem "simple_form"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -58,6 +58,9 @@ group :development, :test do
 
   # Factory Bot for test data [https://github.com/thoughtbot/factory_bot_rails]
   gem "factory_bot_rails"
+
+  # Faker for generating realistic test data [https://github.com/faker-ruby/faker]
+  gem "faker"
 end
 
 group :development do
@@ -72,10 +75,8 @@ group :test do
 
 
 
-
-  # Faker for generating realistic test data [https://github.com/faker-ruby/faker]
-  gem "faker"
-
   # Shoulda Matchers for RSpec assertions [https://github.com/thoughtbot/shoulda-matchers]
   gem "shoulda-matchers"
+
+  gem "rails-controller-testing"
 end

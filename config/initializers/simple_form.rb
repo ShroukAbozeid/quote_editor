@@ -18,7 +18,7 @@ SimpleForm.setup do |config|
   end
 
   # Default configuration
-  config.generate_additional_classes_for = []
+  config.generate_additional_classes_for = [ :label ]
   config.default_wrapper                 = :default
   config.button_class                    = "btn"
   config.label_text                      = lambda { |label, _, _| label }

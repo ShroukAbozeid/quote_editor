@@ -13,7 +13,10 @@ class QuotesController < ApplicationController
 
     if @quote.save
       # TODO: turbo stream update
-      redirect_to quotes_path, notice: "Quote was successfully created."
+      respond_to do |format|
+        format.html { redirect_to quotes_path, notice: "Quote was successfully created." }
+        format.turbo_stream
+      end
     else
       # TODO: turbo stream error handling
       render :new, status: :unprocessable_entity
@@ -28,18 +31,18 @@ class QuotesController < ApplicationController
 
   def update
     if @quote.update(quote_params)
-      # TODO: turbo stream update
       redirect_to quotes_path, notice: "Quote was successfully updated."
     else
-      # TODO: turbo stream error handling
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @quote.destroy
-    # TODO: turbo stream update
-    redirect_to quotes_path, notice: "Quote was successfully destroyed."
+    respond_to do |format|
+      format.html { redirect_to quotes_path, notice: "Quote was successfully destroyed." }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@quote) }
+    end
   end
 
   private

@@ -1,15 +1,15 @@
 class QuotesController < ApplicationController
   before_action :set_quote, only: %i[ show edit update destroy ]
   def index
-    @quotes = Quote.recent_first
+    @quotes = current_company.quotes.recent_first
   end
 
   def new
-    @quote = Quote.new
+    @quote = current_company.quotes.new
   end
 
   def create
-    @quote = Quote.new(quote_params)
+    @quote = current_company.quotes.new(quote_params)
 
     if @quote.save
       # TODO: turbo stream update
@@ -47,7 +47,7 @@ class QuotesController < ApplicationController
 
   private
   def set_quote
-    @quote = Quote.find(params[:id])
+    @quote = current_company.quotes.find(params[:id])
   end
 
   def quote_params

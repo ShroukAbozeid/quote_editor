@@ -1,8 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "Quotes", type: :system do
+  include Devise::Test::IntegrationHelpers
+
+  let(:user) { create(:user) }
+  let(:company) { user.company }
+
   before do
     driven_by(:selenium_chrome_headless)
+    sign_in(user)
   end
 
   describe 'creating a quote' do
@@ -22,7 +28,7 @@ RSpec.describe "Quotes", type: :system do
   end
 
   describe 'displaying a quote' do
-    let!(:quote) { create(:quote) }
+    let!(:quote) { create(:quote, company:) }
 
     it 'enables users to view a quote' do
       visit "/quotes"
@@ -33,7 +39,7 @@ RSpec.describe "Quotes", type: :system do
   end
 
   describe "updating a quote" do
-    before { create(:quote, content: old_content) }
+    before { create(:quote, company:, content: old_content) }
 
     let(:old_content) { Faker::Lorem }
 
@@ -51,7 +57,7 @@ RSpec.describe "Quotes", type: :system do
     end
   end
   describe 'Destroying a quote' do
-     let!(:quote) { create(:quote) }
+     let!(:quote) { create(:quote, company:) }
 
     it "enables Destroying a quote" do
       visit '/quotes'

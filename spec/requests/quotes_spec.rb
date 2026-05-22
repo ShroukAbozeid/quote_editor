@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe "Quotes", type: :request do
+  include Devise::Test::IntegrationHelpers
+
+  let(:user) { create(:user) }
+  let(:company) { user.company }
+
+  before do
+    sign_in(user)
+  end
+
   describe "GET /index" do
     it "returns http success" do
       get "/quotes"
@@ -13,9 +22,9 @@ RSpec.describe "Quotes", type: :request do
     end
 
     it "assigns @quotes" do
-      quote = create(:quote)
+      quote = create(:quote, company:)
       get "/quotes"
-      expect(assigns(:quotes)).to eq([quote])
+      expect(assigns(:quotes)).to eq([ quote ])
     end
   end
 end

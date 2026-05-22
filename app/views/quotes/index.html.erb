@@ -9,7 +9,12 @@
                 data: { turbo_frame: "new_quote" },
                 class: "btn btn--primary" %>
   </div>
-  <%= turbo_frame_tag "new_quote" %>
+  <%= turbo_frame_tag "new_quote" do %>
+    <% if @quotes.empty? %>
+      <%= render "empty_state" %>
+    <% end %>
+  <% end %>
+
   <%= turbo_frame_tag "quotes" do %>
     <%= render @quotes %>
   <% end %>

@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get "line_item/new"
+  get "line_item/create"
+  get "line_item/edit"
+  get "line_item/update"
+  get "line_item/destroy"
   get "line_item_dates/new"
   get "line_item_dates/create"
   get "line_item_dates/edit"
@@ -18,6 +23,8 @@ Rails.application.routes.draw do
   root "pages#home"
 
   resources :quotes do
-    resources :line_item_dates, except: [ :index, :show ]
+    resources :line_item_dates, except: [ :index, :show ] do
+      resources :line_items, except: [ :index, :show ]
+    end
   end
 end

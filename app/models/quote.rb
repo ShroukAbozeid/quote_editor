@@ -3,6 +3,7 @@ class Quote < ApplicationRecord
 
   belongs_to :company
   has_many :line_item_dates, dependent: :destroy
+  has_many :line_items, through: :line_item_dates
 
   scope :recent_first, -> { order(created_at: :desc) }
 
@@ -10,6 +11,11 @@ class Quote < ApplicationRecord
 
   after_create_commit :remove_empty_state
   after_destroy_commit :add_empty_state, if: -> { company.quotes.empty? }
+
+
+  def total_price
+    line_items.sum(&:total_price)
+  end
 
   private
 

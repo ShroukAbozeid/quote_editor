@@ -2,6 +2,7 @@ class Quote < ApplicationRecord
   validates :content, presence: true
 
   belongs_to :company
+  has_many :line_item_dates, dependent: :destroy
 
   scope :recent_first, -> { order(created_at: :desc) }
 

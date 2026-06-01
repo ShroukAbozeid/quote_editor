@@ -13,7 +13,10 @@ kpmg = Company.find_or_create_by(name: 'KPMG')
 pwc = Company.find_or_create_by(name: 'PwC')
 
 FactoryBot.create_list(:quote, 3, company: kpmg) if kpmg.quotes.empty?
+FactoryBot.create_pair(:line_item_date, quote: kpmg.quotes.first) if kpmg.quotes.first.line_item_dates.empty?
+
 FactoryBot.create_list(:quote, 3, company: pwc) if pwc.quotes.empty?
+FactoryBot.create_list(:line_item_date, 3, quote: pwc.quotes.first) if pwc.quotes.first.line_item_dates.empty?
 
 User.find_or_initialize_by(email: 'accountant@kpmg.com', company_id: kpmg.id).update(password: 'password')
 User.find_or_initialize_by(email: 'manager@kpmg.com', company_id: pwc.id).update(password: 'password')

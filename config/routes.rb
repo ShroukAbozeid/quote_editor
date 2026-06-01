@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get "line_item_dates/new"
+  get "line_item_dates/create"
+  get "line_item_dates/edit"
+  get "line_item_dates/destroy"
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -13,5 +17,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "pages#home"
 
-  resources :quotes
+  resources :quotes do
+    resources :line_item_dates, except: [ :index, :show ]
+  end
 end
